@@ -10,7 +10,7 @@ Linear_Damper::Linear_Damper( double damping_coefficient)
 }
 
 double Linear_Damper::get_damper_force(double damper_velocity){
-    return damping_coefficient*damper_velocity;
+    return -damping_coefficient*damper_velocity;
 }
     
     

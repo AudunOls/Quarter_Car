@@ -5,6 +5,8 @@
 #include "Damper.h"
 #include "Linear_Damper.h"
 #include "Quarter_Car.h"
+#include "Road_Input.h"
+#include "Impulse_Input.h"
 
 int main(){
 
@@ -41,12 +43,20 @@ int main(){
 
 // Test of Linear_Spring, Linear_Damper and Quarter_Car class:
 
+   double sprung_mass {41.2}; // Initializing sprung mass [kg]
+   double unsprung_mass {10.1}; // Initializing unsprung mass [kg]
+
   Spring * tyre_spring = new Linear_Spring(0.0, 1);
   Spring * suspension_spring  = new Linear_Spring(0.0,2.0);
   Damper * tyre_damper = new Linear_Damper(3.0);
   Damper * suspension_damper = new Linear_Damper(4.0);
+  Road_Input * impulse = new Impulse_Input();
 
-  Quarter_Car QC_1(tyre_spring, suspension_spring, tyre_damper,suspension_damper);
+  Quarter_Car QC_1(unsprung_mass,sprung_mass, 
+                  tyre_spring, suspension_spring, 
+                  tyre_damper,suspension_damper, 
+                  impulse);
+ 
  
   std::cout << "\n=========== Classes ===========\n"; 
   std::cout << "Unsprung spring rate: " << tyre_spring->get_spring_rate(10) << std::endl;
@@ -71,6 +81,10 @@ int main(){
   std::cout << "Unsprung damper force: " << QC_1.get_unsprung_damper_force(10)<<std::endl;
   std::cout <<"Sprung damper force: " << QC_1.get_sprung_damper_force(10)<<std::endl;
 
+
+std::cout << "Road input Impulse Class: " << impulse->get_road_velocity(0.1) << std::endl;
+std::cout << "Road input QC_1: " << QC_1.get_road_input(0.1) << std::endl;
+ 
 
   std::cout<< "\n=========== Completed =============\n";
     return 0;
