@@ -17,8 +17,8 @@ class Linear_Spring: public Spring {
     
     public:
     Linear_Spring(double spring_preload = 0.0, double spring_rate = 0.0); // constructor
-    virtual double get_spring_force(double spring_compression) override;
-    virtual double get_spring_rate(double spring_compression) override;
+    virtual double get_spring_force(double spring_extension) override;
+    virtual double get_spring_rate(double spring_extension) override;
     virtual ~Linear_Spring() = default;
 };
 

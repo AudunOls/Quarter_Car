@@ -22,20 +22,20 @@ Quarter_Car::Quarter_Car(double unsprung_mass, double sprung_mass,
 }
 
 // Get spring rate functions:
-double Quarter_Car::get_unsprung_spring_rate(double spring_compression) {
-    	return unsprung_spring->get_spring_rate(spring_compression);
+double Quarter_Car::get_unsprung_spring_rate(double spring_extension){
+    	return unsprung_spring->get_spring_rate(spring_extension);
 }
 
-double Quarter_Car::get_sprung_spring_rate(double spring_compression){
-  		return sprung_spring->get_spring_rate(spring_compression);
+double Quarter_Car::get_sprung_spring_rate(double spring_extension){
+  		return sprung_spring->get_spring_rate(spring_extension);
 }
 
 // Get spring forces functions:
-double Quarter_Car::get_unsprung_spring_force(double spring_compression) {
-    	return unsprung_spring->get_spring_force(spring_compression);
+double Quarter_Car::get_unsprung_spring_force(double spring_extension) {
+    	return unsprung_spring->get_spring_force(spring_extension);
  }
-double Quarter_Car::get_sprung_spring_force(double spring_compression){
-  		return sprung_spring->get_spring_force(spring_compression);
+double Quarter_Car::get_sprung_spring_force(double spring_extension){
+  		return sprung_spring->get_spring_force(spring_extension);
 }
 
 

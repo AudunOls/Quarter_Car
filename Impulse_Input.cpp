@@ -19,5 +19,3 @@ double Impulse_Input::get_road_velocity(double time){
     }
 }
     
-
-

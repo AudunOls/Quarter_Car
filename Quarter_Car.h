@@ -1,3 +1,14 @@
+/*
+Quarter car class consists of four classes:
+-   Sprung spring 
+-   Spung damper
+-   Tyre spring
+-   Tyre damper
+-   Road input
+
+The quarter car has two private variables: Sprung mass and unsprung mass.
+*/
+
 #ifndef QUARTER_CAR_H
 #define QUARTER_CAR_H
 #include <iostream>
@@ -17,7 +28,7 @@ class Quarter_Car {
         Spring * sprung_spring;     // Spring rate [N/m], Force [N]
         Damper * unsprung_damper;   // Damper coefficient [N/m/s], Force [N]
         Damper * sprung_damper;     // Damper coefficient [N/m/s], Force [N]
-        Road_Input * road_input;    // [m/s]
+        Road_Input * road_input;    // Road velocity [m/s]
 
    public:
 
@@ -28,10 +39,10 @@ class Quarter_Car {
         Road_Input * road_input_prt);
 
     // Spring get function prototypes
-    double get_unsprung_spring_rate(double spring_compression);
-    double get_sprung_spring_rate(double spring_compression);
-    double get_unsprung_spring_force(double spring_compression);
-    double get_sprung_spring_force(double spring_compression);
+    double get_unsprung_spring_rate(double spring_extension);
+    double get_sprung_spring_rate(double spring_extension);
+    double get_unsprung_spring_force(double spring_extension);
+    double get_sprung_spring_force(double spring_extension);
 
 
     // Damper get function prototpes

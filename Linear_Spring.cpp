@@ -7,11 +7,11 @@ Linear_Spring::Linear_Spring(double spring_preload, double spring_rate)
 }
     
 // Overriding the pure viritual funciton in spring class
-double Linear_Spring::get_spring_rate(double spring_compression){
+double Linear_Spring::get_spring_rate(double spring_extension){
     return spring_rate;
 }
 
 // Overriding the pure viritual funciton in spring class
-double Linear_Spring::get_spring_force(double spring_compression) {
-    return spring_preload - get_spring_rate(spring_compression)*spring_compression;
+double Linear_Spring::get_spring_force(double spring_extension) {
+    return -spring_preload - get_spring_rate(spring_extension)*spring_extension;
 }
