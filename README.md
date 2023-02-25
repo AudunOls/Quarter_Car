@@ -14,6 +14,15 @@ The bilinear spring class has four inputs: spring preload, initial spring rate, 
 
 The quarter car has two types of dampers, linear and bilinear (4-way adjustable). The linear damper has one input: damper_coefficient. The linear damper has the same damper coefficient in both rebound and compression. The bilinear damper has six inputs: lowspeed_compression, highspeed_compression, lowspeed_rebound, highspeed_rebound, kneeespeed_compression, kneespeed_rebound. 
 
+
+## Road Input
+Three types of road inputs are available: Impulse input, sinusoidal input and random input. 
+
+In the step input, the amplitude of the step input (i.g. curb heigth) and the time of the impulse can be elected. In the sinusoidal input, the frequency and ampltude can be customized. In the random input the mean value and the standard deviation can be customized.
+
+The default road inputs can be seen in the plots below. 
+![Road_Input](https://user-images.githubusercontent.com/90693037/221360226-9334d6c1-aa0a-4f20-bd48-5d1475ce3b62.svg)
+
 ## Sign convention
 
 The sign convention used in this quarter car model is z-axis pointing upwards, with zero set to the equilibrium point of the masses. This means that a positive position will be a position above the equilibrium point (positive z). The force is also defined as positive when acting in the postive z-direction.
@@ -24,3 +33,6 @@ max_travel_initial_spring_rate: insert positive value
 
 Damper coefficient(s): insert positive value(s)
 Knee speeds: insert a positive value
+
+
+
