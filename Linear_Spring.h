@@ -5,8 +5,7 @@
 #ifndef LINEAR_SPRING_H
 #define LINEAR_SPRING_H
 #include "Spring.h"
-#include <iostream>
-#include <string>
+
 
 
 class Linear_Spring: public Spring {

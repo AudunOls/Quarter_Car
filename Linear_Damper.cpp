@@ -1,7 +1,6 @@
 #include "Linear_Damper.h"
 #include "Damper.h"
-#include <iostream>
-#include <string>
+
 
 //Constructor
 Linear_Damper::Linear_Damper( double damping_coefficient) 

@@ -14,8 +14,7 @@ When in compression the damper force will be positive.
 #ifndef LINEAR_DAMPER_H
 #define LINEAR_DAMPER_H
 #include "Damper.h"
-#include <iostream>
-#include <string>
+
 
 
 class Linear_Damper: public Damper {

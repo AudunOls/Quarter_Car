@@ -11,14 +11,13 @@ The quarter car has two private variables: Sprung mass and unsprung mass.
 
 #ifndef QUARTER_CAR_H
 #define QUARTER_CAR_H
-#include <iostream>
-#include <string>
 #include "Spring.h"
 #include "Linear_Spring.h"
 #include "Damper.h"
 #include "Linear_Damper.h"
 #include "Road_Input.h"
 #include "Impulse_Input.h"
+#include <vector>
 
 class Quarter_Car {
 	private: 
@@ -53,6 +52,15 @@ class Quarter_Car {
 
     // Road get function prototypes
     double get_road_input(double time);
+
+    // Get extension and velocities form states and time
+    double get_sprung_spring_extension(std::vector<double> state);
+    double get_unsprung_spring_extension(std::vector<double> state);
+    double get_sprung_damper_velocity(std::vector<double> state);
+    double get_unsprung_damper_velocity(std::vector<double> state, double time);
+
+    // get state derivatives retuns the state derivatives vector
+    std::vector<double> get_state_derivatives(double time, std::vector<double> state);
 };
 
 #endif // QUARTER_CAR_H

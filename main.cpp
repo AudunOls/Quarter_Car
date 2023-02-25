@@ -1,5 +1,8 @@
  
+#define _USE_MATH_DEFINES
 #include <iostream>
+#include <vector>
+#include <set>
 #include "Spring.h"
 #include "Linear_Spring.h"
 #include "Damper.h"
@@ -9,124 +12,91 @@
 #include "Impulse_Input.h"
 #include "Bilinear_Spring.h"
 #include "Bilinear_Damper.h"
+#include "Sinusoidal_Input.h"
+#include "Random_Input.h"
+#include <cmath>
+#include <matplot/matplot.h>
 
+using namespace matplot;
 
 int main(){
 
-/*************** Pseudocode ****************
- 
-// initialize Spring classes
 
-// initialize Damper classes
+/**************** Initialisation of time vector ****************/
 
- // initialize Road_Input class
+    double start_time{ 0 };
+    double end_time{ 1 };
+    double step_size{ 0.01 };
 
- // initialize Quarter_Car class
+    int n = (end_time - start_time) / step_size;
 
- // double initialize t_start, delta_t, t_end
+    std::vector <double> time_vector = linspace(start_time, end_time, n);
 
- // vector initialize results_vector (elements = (t_end-t_start)/delta_t)
- 
- // for loop(t<t_end, delta_t)
+/****************Initialisation of springs and dampers****************************************/
 
-    // vector x_dot = quarter_car.update_state_derivatives(x)
-
-    // vector x_new = solver.integrate(x_dot, x, delta_t)
-
-    // vector forces = quarter_car_get_forces(x_new)
-
-    // vector results_vector.pushback(x_new, forces)
-
- // Plot result
-    //plot results
-    //plot states
-    //plot forces
-
-*****************************************/
-
-
-/******************Test of Linear_Spring, Linear_Damper and Quarter_Car class *******************/
-/*
-   double sprung_mass {41.2}; // Initializing sprung mass [kg]
+   double sprung_mass {41.175}; // Initializing sprung mass [kg]
    double unsprung_mass {10.1}; // Initializing unsprung mass [kg]
 
-  Spring * tyre_spring = new Linear_Spring(0.0, 1);
-  Spring * suspension_spring  = new Linear_Spring(0.0,2.0);
-  Damper * tyre_damper = new Linear_Damper(3.0);
-  Damper * suspension_damper = new Linear_Damper(4.0);
-  Road_Input * impulse = new Impulse_Input();
+  Spring * tyre_spring = new Linear_Spring(0.0, 87.9e3);
+  Damper * tyre_damper = new Linear_Damper(110);
 
-  Quarter_Car QC_1(unsprung_mass,sprung_mass, 
-                  tyre_spring, bilinear_spring, 
-                  tyre_damper,suspension_damper, 
+
+  Spring* linear_suspension_spring = new Linear_Spring(0.0, 56e3);
+  Spring* bilinear_suspension_spring = new Bilinear_Spring(0.0, 52e3, 10e-3, 200e3);
+
+  Damper* linear_suspension_damper = new Linear_Damper(4000);
+  Damper* bilinear_suspension_damper = new Bilinear_Damper(3e3, 5e3, 3e3, 5e3, 50e-3, 50e-3);
+
+
+  Road_Input* impulse = new Impulse_Input(start_time, end_time, 200e-3, 0.3);
+  Road_Input* sinusoidal = new Sinusoidal_Input(start_time, end_time, 0.5, 5);
+  Road_Input* random = new Random_Input();
+
+
+  // Add these parameters to default parameters
+
+
+  /**************** Initialisation of linear quarter car ****************/
+
+  Quarter_Car linear_QC(unsprung_mass,sprung_mass, 
+                  tyre_spring, linear_suspension_spring, 
+                  tyre_damper,linear_suspension_damper, 
                   impulse);
- 
- 
-  std::cout << "\n=========== Classes ===========\n"; 
-  std::cout << "Unsprung spring rate: " << tyre_spring->get_spring_rate(10) << std::endl;
-  std::cout <<"Sprung spring rate: " << suspension_spring->get_spring_rate(10)<<std::endl;
-  std::cout << "Unsprung damper coefficient: " << tyre_damper->get_damper_coefficent(10)<<std::endl;
-  std::cout <<"Sprung damper coeffient: " << suspension_damper->get_damper_coefficent(10)<<std::endl;
-
-  std::cout << "Unsprung spring force: " << tyre_spring->get_spring_force(10) << std::endl;
-  std::cout <<"Sprung spring force: " << suspension_spring->get_spring_force(10)<<std::endl;
-  std::cout << "Unsprung damper force: " << tyre_damper->get_damper_force(10)<<std::endl;
-  std::cout <<"Sprung damper force: " << suspension_damper->get_damper_force(10)<<std::endl;
 
 
-  std::cout << "\n=========== QC_1 ===========\n"; 
-  std::cout << "Unsprung spring rate: " << QC_1.get_unsprung_spring_rate(10) << std::endl;
-  std::cout <<"Sprung spring rate: " << QC_1.get_sprung_spring_rate(10)<<std::endl;
-  std::cout << "Unsprung damper coefficient: " << QC_1.get_unsprung_damper_coefficient(10)<<std::endl;
-  std::cout <<"spring damper coeffient: " << QC_1.get_sprung_damper_coefficient(10)<<std::endl;
+  /**************** Initialisation of bilinear quarter car ****************/
+  
 
-  std::cout << "Unsprung spring force: " << QC_1.get_unsprung_spring_force(10) << std::endl;
-  std::cout <<"Sprung spring force: " << QC_1.get_sprung_spring_force(10)<<std::endl;
-  std::cout << "Unsprung damper force: " << QC_1.get_unsprung_damper_force(10)<<std::endl;
-  std::cout <<"Sprung damper force: " << QC_1.get_sprung_damper_force(10)<<std::endl;
+  Quarter_Car bilinear_QC(unsprung_mass, sprung_mass,
+                        tyre_spring, bilinear_suspension_spring,
+                        tyre_damper, bilinear_suspension_damper,
+                        sinusoidal);
 
 
-std::cout << "Road input Impulse Class: " << impulse->get_road_velocity(0.1) << std::endl;
-std::cout << "Road input QC_1: " << QC_1.get_road_input(0.1) << std::endl;
-*/
+    /**************** Initialisation of results vector ****************/
 
-/******************************* Test of bilinear dampers and springs ********************************/
-
-// preload= 1, intial_spring_rate = 1.0, max_travel_intial_spring_rate = 2  sec_spring_rate = 3
-Spring * bilinear_spring = new Bilinear_Spring(1, 1.0, 2, 3);
-
-// LS-C = 1, HS-C = 2, LS-R = 1, HS-R = 2, Knee-C = 2, Knee-R = 2
-Damper * bilinear_damper = new Bilinear_Damper(1, 2, 1, 2, 2, 2); 
+    //five rows, n colums
 
 
-std::cout<< "Spring Rates: \n"<< std::endl; 
-std::cout<< bilinear_spring->get_spring_rate(-1)<< std::endl; // K_1 = 1
-std::cout<< bilinear_spring->get_spring_rate(-3)<< std::endl; // K_2 = 3
-std::cout<< bilinear_spring->get_spring_rate(1)<< std::endl;  // K_1 = 1
-std::cout<< bilinear_spring->get_spring_rate(3)<< std::endl;  // K_2 = 1
+    /**************** For loop ****************/
 
 
-std::cout<< "Spring Forces: \n"<< std::endl; 
-std::cout<< bilinear_spring->get_spring_force(-1)<< std::endl; // -(1*(-1)) - 1 = 0
-std::cout<< bilinear_spring->get_spring_force(-3)<< std::endl; // -2*(-1) - 3*((-3)+2)-1 = 4
-std::cout<< bilinear_spring->get_spring_force(1)<< std::endl;  // -(1*1) - 1 = -2
-std::cout<< bilinear_spring->get_spring_force(3)<< std::endl;  // -(1*3) - 1 = -4
+    // for loop(t<t_end, delta_t)
+
+        // vector x_dot = quarter_car.update_state_derivatives(x)
+
+        // vector x_new = solver.integrate(x_dot, x, delta_t)
+
+        // vector forces = quarter_car_get_forces(x_new)
+
+        // vector results_vector.pushback(x_new, forces)
+
+    /**************** Plot Results ****************/
+
+    //plot states and state derivatives
+    //plot forces
 
 
-std::cout<< "Damper Coeffs: \n"<< std::endl; 
-std::cout<< bilinear_damper->get_damper_coefficent(-1)<< std::endl; // LS-C: 1
-std::cout<< bilinear_damper->get_damper_coefficent(-3)<< std::endl; // HS-C: 2
-std::cout<< bilinear_damper->get_damper_coefficent(1)<< std::endl; // LS-R: 1
-std::cout<< bilinear_damper->get_damper_coefficent(3)<< std::endl; // HS-R: 2
-
-std::cout<< "Damper Forces: \n"<< std::endl; 
-std::cout<< bilinear_damper->get_damper_force(-1)<< std::endl; // LS-C: -(1 *-1) = 1
-std::cout<< bilinear_damper->get_damper_force(-3)<< std::endl; // HS-C: -1*(-2)-2*(-3+2)) = 4
-std::cout<< bilinear_damper->get_damper_force(1)<< std::endl; // LS-R: -(1*1) = -1
-std::cout<< bilinear_damper->get_damper_force(3)<< std::endl; // HS-R: -(1*4) = -4
-
-
-  std::cout<< "\n=========== Completed =============\n";
+std::cout<< "\n=========== Completed =============\n";
     return 0;
 }
-
