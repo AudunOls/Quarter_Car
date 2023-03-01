@@ -5,13 +5,14 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <random>
 
 
 class Random_Input : public Road_Input {
 
 private:
-    double mean;         // mean value
-    double stddev;       // standard deviation
+    std::normal_distribution<double> norm;
+    std::default_random_engine rd;
 
 
 public:
