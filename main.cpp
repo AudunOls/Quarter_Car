@@ -1,26 +1,5 @@
  
-#define _USE_MATH_DEFINES
-#include <iostream>
-#include <vector>
-#include <set>
-#include "Spring.h"
-#include "Linear_Spring.h"
-#include "Damper.h"
-#include "Linear_Damper.h"
-#include "Quarter_Car.h"
-#include "Road_Input.h"
-#include "Impulse_Input.h"
-#include "Bilinear_Spring.h"
-#include "Bilinear_Damper.h"
-#include "Sinusoidal_Input.h"
-#include "Random_Input.h"
-#include <cmath>
-#include <matplot/matplot.h>
-#include "Numerical_Solver.h"
-#include "Forward_Euler.h"
-#include <Eigen/Dense>
-#include "Continuous_Damper.h"
-
+#include "main.h"
 
 using namespace matplot;
 using namespace std;
@@ -140,7 +119,6 @@ int main(){
 
   nexttile();
   plot(time_vector, state_5);
-  ylim({ -0.05,0.25 });
   ylabel("Position [m]");
   title("Road position");
 
