@@ -19,6 +19,7 @@
 #include "Numerical_Solver.h"
 #include "Forward_Euler.h"
 #include <Eigen/Dense>
+#include "Continuous_Damper.h"
 
 
 using namespace matplot;
@@ -31,7 +32,7 @@ int main(){
 
     double start_time{ 0.0 };
     double end_time{ 1.0 };
-    int n{ 1000 };
+    int n{ 10000 };
 
     double step_size = (end_time - start_time) / n;
 
@@ -53,20 +54,23 @@ int main(){
   Damper* bilinear_suspension_damper = new Bilinear_Damper(3e3, 5e3, 3e3, 5e3, 50e-3, 50e-3);
 
 
-  Road_Input* impulse = new Impulse_Input(start_time, end_time, 200e-3, 0.1);
-  Road_Input* sinusoidal = new Sinusoidal_Input(start_time, end_time, 0.5, 5);
-  Road_Input* random = new Random_Input();
+  Damper* cont_damper = new Continuous_Damper(810.0,12.0);
 
 
-  Numerical_Solver* euler = new Forward_Euler(start_time, end_time, step_size);
+  Road_Input* impulse = new Impulse_Input(start_time, end_time, 20e-3, 0.2);
+  Road_Input* sinusoidal = new Sinusoidal_Input(start_time, end_time, 0.05, 5);
+  Road_Input* random = new Random_Input(0.0, 0.7);
 
+
+   Numerical_Solver* euler = new Forward_Euler(start_time, end_time, step_size);
+  
 
   /**************** Initialisation of linear quarter car ****************/
 
   Quarter_Car linear_QC(unsprung_mass,sprung_mass, 
                   tyre_spring, linear_suspension_spring, 
                   tyre_damper,linear_suspension_damper, 
-                  random);
+                  impulse);
 
 
   /**************** Initialisation of bilinear quarter car ****************/
@@ -74,7 +78,7 @@ int main(){
 
   Quarter_Car bilinear_QC(unsprung_mass, sprung_mass,
                         tyre_spring, bilinear_suspension_spring,
-                        tyre_damper, bilinear_suspension_damper,
+                        tyre_damper, cont_damper,
                         impulse);
 
 
@@ -96,9 +100,8 @@ int main(){
 
   for (double t = start_time; t <= end_time; t = t + step_size)
   {
-      
-      state_derivatives = bilinear_QC.get_state_derivatives(t, state);
-      state = euler->solve(state, state_derivatives, t);
+ 
+      state = euler->solve(state, bilinear_QC, t);
 
       state_1[i] = state[0];
       state_2[i] = state[1];
@@ -143,7 +146,6 @@ int main(){
 
   nexttile();
   plot(time_vector, input);
-  ylim({ -0.05,2.5 });
   ylabel("Velocity [m/s]");
   title("Road velocity");
 
