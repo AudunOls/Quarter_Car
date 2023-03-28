@@ -1,23 +1,17 @@
  
 #include "main.h"
 
-using namespace matplot;
-using namespace std;
-
 int main(){
 
-
 /**************** Initialisation of time vector ****************/
-
+    
     double start_time{ 0.0 };
     double end_time{ 1.0 };
     int n{ 10000 };
 
     double step_size = (end_time - start_time) / n;
-
-    std::vector <double> time_vector = linspace(start_time, end_time, n+1);
-
-/****************Initialisation of springs and dampers****************************************/
+    
+/**************** Initialisation of springs and dampers ****************/
 
    double sprung_mass {41.175}; // Initilize sprung mass [kg]
    double unsprung_mass {10.1}; // Initilize unsprung mass [kg]
@@ -36,98 +30,33 @@ int main(){
   Damper* cont_damper = new Continuous_Damper(810.0,12.0);
 
 
+  /**************** Road input ****************/
+
   Road_Input* impulse = new Impulse_Input(start_time, end_time, 20e-3, 0.2);
   Road_Input* sinusoidal = new Sinusoidal_Input(start_time, end_time, 0.05, 5);
   Road_Input* random = new Random_Input(0.0, 0.7);
 
-
-   Numerical_Solver* euler = new Forward_Euler(start_time, end_time, step_size);
   
-
-  /**************** Initialisation of linear quarter car ****************/
-
-  Quarter_Car linear_QC(unsprung_mass,sprung_mass, 
-                  tyre_spring, linear_suspension_spring, 
-                  tyre_damper,linear_suspension_damper, 
-                  impulse);
-
-
-  /**************** Initialisation of bilinear quarter car ****************/
-  
-
-  Quarter_Car bilinear_QC(unsprung_mass, sprung_mass,
-                        tyre_spring, bilinear_suspension_spring,
-                        tyre_damper, cont_damper,
-                        impulse);
-
-
-
-    /**************** For loop ****************/
-
-  vector<double> state_1(n+1, 0);
-  vector<double> state_2(n+1, 0);
-  vector<double> state_3(n+1, 0);
-  vector<double> state_4(n+1, 0);
-  vector<double> state_5(n+1, 0);
-  vector<double> input(n+1, 0);
-
-
-  vector<double> state(5, 0);
-  vector<double> state_derivatives(5, 0);
-
-  int i{ 0 };
-
-  for (double t = start_time; t <= end_time; t = t + step_size)
-  {
+  /**************** Dynamic System (Quarter Car) ****************/
  
-      state = euler->solve(state, bilinear_QC, t);
+  Dynamic_System* qc = new Quarter_Car(unsprung_mass, sprung_mass,
+      tyre_spring, linear_suspension_spring,
+      tyre_damper, cont_damper,
+      random);
+  
 
-      state_1[i] = state[0];
-      state_2[i] = state[1];
-      state_3[i] = state[2];
-      state_4[i] = state[3];
-      state_5[i] = state[4];
-      input[i] = bilinear_QC.get_road_input(t);
+  /**************** Numerical Solver (Euler) ****************/
 
-      ++i;
-  }
-
-    /**************** Plot Results ****************/
+  Numerical_Solver* euler = new Forward_Euler(start_time, end_time, step_size);
 
 
-  tiledlayout(3, 2);
+  /**************** Simulation  ****************/
 
-  nexttile();
-  plot(time_vector, state_1);
-  ylabel("Position [m]");
-  title("Sprung mass position");
+  Simulation sim(start_time, end_time, n, qc, euler);
+  
+  sim.run_simulation();
+  sim.plot_result();
 
-  nexttile();
-  plot(time_vector, state_2);
-  ylabel("Velocity [m/s]");
-  title("Sprung mass velocity");
-
-  nexttile();
-  plot(time_vector, state_3);
-  ylabel("Position [m]");
-  title("Unsprung mass position");
-
-  nexttile();
-  plot(time_vector, state_4);
-  ylabel("Velocity [m/s]");
-  title("Unsprung mass velocity");
-
-  nexttile();
-  plot(time_vector, state_5);
-  ylabel("Position [m]");
-  title("Road position");
-
-  nexttile();
-  plot(time_vector, input);
-  ylabel("Velocity [m/s]");
-  title("Road velocity");
-
-show();
 std::cout<< "\n=========== Completed =============\n";
     return 0;
 }

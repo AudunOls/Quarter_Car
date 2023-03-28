@@ -14,8 +14,6 @@ When in compression the damper force will be positive.
 #ifndef CONTINUOUS_DAMPER_H
 #define CONTINUOUS_DAMPER_H
 #include "Damper.h"
-#include <iostream>
-#include <string>
 #include <cmath>
 
 class Continuous_Damper : public Damper {

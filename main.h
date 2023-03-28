@@ -1,3 +1,5 @@
+#pragma once
+
 #define _USE_MATH_DEFINES
 #include <iostream>
 #include <vector>
@@ -14,9 +16,10 @@
 #include "Sinusoidal_Input.h"
 #include "Random_Input.h"
 #include <cmath>
-#include <matplot/matplot.h>
 #include "Numerical_Solver.h"
 #include "Forward_Euler.h"
-#include <Eigen/Dense>
 #include "Continuous_Damper.h"
-#pragma once
+#include "Dynamic_System.h"
+#include "Simulation.h"
+
+using namespace std;

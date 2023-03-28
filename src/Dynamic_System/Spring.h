@@ -11,8 +11,6 @@ get_spring_force takes in spring extension and returns the spring force
 
 #ifndef SPRING_H
 #define SPRING_H
-#include <iostream>
-#include <string>
 
 class Spring {
 

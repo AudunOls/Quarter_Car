@@ -1,8 +1,6 @@
-#include "Spring.h"
-#include "Linear_Spring.h"
+
 #include "Quarter_Car.h"
-#include "Road_Input.h"
-#include "Impulse_Input.h"
+
 
 // Quarter_Car constructor
 Quarter_Car::Quarter_Car(double unsprung_mass, double sprung_mass, 
@@ -55,7 +53,7 @@ double Quarter_Car::get_unsprung_damper_force(double damper_velocity){
 
 
 // Get road velocity:
-  double Quarter_Car::get_road_input(double time){
+  double Quarter_Car::get_input(double time){
     return road_input->get_road_velocity(time);
   }
 
@@ -78,7 +76,7 @@ double Quarter_Car::get_unsprung_damper_force(double damper_velocity){
 
   double Quarter_Car::get_unsprung_damper_velocity(std::vector<double> state, double time)
   {
-      return state[3] - get_road_input(time);
+      return state[3] - get_input(time);
   }
 
 
@@ -104,8 +102,20 @@ double Quarter_Car::get_unsprung_damper_force(double damper_velocity){
                             - unsprung_spring_extension * get_unsprung_spring_rate(unsprung_spring_extension)
                             - unsprung_damper_velocity * get_unsprung_damper_coefficient(unsprung_damper_velocity))
                             / unsprung_mass;
-      state_derivatives[4] = get_road_input(time);
+      state_derivatives[4] = get_input(time);     
 
-     
       return state_derivatives;
+  }
+
+
+
+  
+
+  int  Quarter_Car::get_number_of_states()
+  {
+      return number_of_states;
+  }
+  int Quarter_Car::get_number_of_inputs() 
+  {
+      return number_of_inputs;
   }

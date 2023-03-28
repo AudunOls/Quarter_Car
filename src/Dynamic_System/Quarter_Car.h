@@ -12,6 +12,7 @@ The quarter car has two private variables: Sprung mass and unsprung mass.
 #ifndef QUARTER_CAR_H
 #define QUARTER_CAR_H
 #include "Spring.h"
+#include "Dynamic_System.h"
 #include "Linear_Spring.h"
 #include "Damper.h"
 #include "Linear_Damper.h"
@@ -19,10 +20,13 @@ The quarter car has two private variables: Sprung mass and unsprung mass.
 #include "Impulse_Input.h"
 #include <vector>
 
-class Quarter_Car {
+
+class Quarter_Car:public Dynamic_System {
 	private: 
         double unsprung_mass;       // [kg]
         double sprung_mass;         // [kg]
+        int number_of_states{ 5 };
+        int number_of_inputs{ 1 };
     	Spring * unsprung_spring;   // Spring rate [N/m], Force [N]
         Spring * sprung_spring;     // Spring rate [N/m], Force [N]
         Damper * unsprung_damper;   // Damper coefficient [N/m/s], Force [N]
@@ -51,7 +55,7 @@ class Quarter_Car {
     double get_unsprung_damper_force(double damper_velocity);
 
     // Road get function prototypes
-    double get_road_input(double time);
+    double get_input(double time) override;
 
     // Get extension and velocities form states and time
     double get_sprung_spring_extension(std::vector<double> state);
@@ -60,7 +64,11 @@ class Quarter_Car {
     double get_unsprung_damper_velocity(std::vector<double> state, double time);
 
     // get state derivatives retuns the state derivatives vector
-    std::vector<double> get_state_derivatives(double time, std::vector<double> state);
+    virtual std::vector<double> get_state_derivatives(double time, std::vector<double> state) override;
+
+    // get number of states
+    virtual int get_number_of_states() override;
+    virtual int get_number_of_inputs() override;
 };
 
 #endif // QUARTER_CAR_H

@@ -143,8 +143,8 @@
     <ClCompile Include="src\Dynamic_System\Quarter_Car.cpp" />
     <ClCompile Include="src\Dynamic_System\Random_Input.cpp" />
     <ClCompile Include="src\Dynamic_System\Sinusoidal_Input.cpp" />
+    <ClCompile Include="src\Simulation\Simulation.cpp" />
     <ClCompile Include="src\Solver\Forward_Euler.cpp" />
-    <ClCompile Include="src\Solver\RK_4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -152,6 +152,7 @@
     <ClInclude Include="src\Dynamic_System\Bilinear_Spring.h" />
     <ClInclude Include="src\Dynamic_System\Continuous_Damper.h" />
     <ClInclude Include="src\Dynamic_System\Damper.h" />
+    <ClInclude Include="src\Dynamic_System\Dynamic_System.h" />
     <ClInclude Include="src\Dynamic_System\Impulse_Input.h" />
     <ClInclude Include="src\Dynamic_System\Linear_Damper.h" />
     <ClInclude Include="src\Dynamic_System\Linear_Spring.h" />
@@ -160,9 +161,9 @@
     <ClInclude Include="src\Dynamic_System\Road_Input.h" />
     <ClInclude Include="src\Dynamic_System\Sinusoidal_Input.h" />
     <ClInclude Include="src\Dynamic_System\Spring.h" />
+    <ClInclude Include="src\Simulation\Simulation.h" />
     <ClInclude Include="src\Solver\Forward_Euler.h" />
     <ClInclude Include="src\Solver\Numerical_Solver.h" />
-    <ClInclude Include="src\Solver\RK_4.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
