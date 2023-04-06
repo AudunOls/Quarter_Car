@@ -16,6 +16,7 @@ class Impulse_Input: public Road_Input {
     public:
     Impulse_Input(double start_time= 0.0, double end_time = 1.0, double amplitude = 0.1, double ramp_time= 0.2); // constructor
     virtual double get_road_velocity(double time) override;
+    virtual void set_input(std::vector<double> input) override;
     virtual ~Impulse_Input()=default; 
 };
 

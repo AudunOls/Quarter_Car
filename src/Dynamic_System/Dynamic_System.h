@@ -16,6 +16,7 @@ public:
     virtual int get_number_of_inputs() = 0;
     virtual void sweep_parameters(std::vector<std::vector<std::vector<double> > > results_matrix) = 0;
     virtual void set_parameters(std::vector<std::vector<double>> parameters) = 0;
+    virtual void set_input(std::vector<double> input) =0;
     virtual void plot(std::vector<std::vector<double>> results) = 0;
     virtual ~Dynamic_System() = default;
 };

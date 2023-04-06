@@ -123,3 +123,15 @@ void Simulation::sweep_parameters(vector<vector<vector<double> > > sweep_matrix)
 	
 	return;
 }
+
+
+// Sets the input of the dynamic system
+// for road inputs this is:
+// impulse input: [amplitude, ramp time] 
+// sinusoidal input: [amplitude, frequency]
+// random input: [mean, standard deviation] 
+void Simulation::set_input(vector<double> input) {
+
+	system->set_input(input);
+	return;
+}

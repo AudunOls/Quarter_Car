@@ -16,6 +16,7 @@ private:
 public:
     Random_Input(double mean = 0.0, double stddev = 0.1); // constructor
     virtual double get_road_velocity(double time) override;
+    virtual void set_input(std::vector<double> input) override;
     virtual ~Random_Input() = default;
 };
 

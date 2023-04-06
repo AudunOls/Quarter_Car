@@ -114,8 +114,8 @@ double Quarter_Car::get_unsprung_damper_force(double damper_velocity){
 
   void Quarter_Car::set_parameters(std::vector<std::vector<double>> parameters){
 
-      //unsprung_mass = parameters[0];
-      //sprung_mass = parameters[1];
+      unsprung_mass = double(parameters[0][0]);
+      sprung_mass = double(parameters[1][0]);
       set_unsprung_spring_rates(parameters[2]);
       set_unsprung_damper_coefficient(parameters[3]);
       set_sprung_spring_rates(parameters[4]);
@@ -124,6 +124,11 @@ double Quarter_Car::get_unsprung_damper_force(double damper_velocity){
   };
 
 
+  // sets the road input by passing the input vec input = [input1, input2]
+  void Quarter_Car::set_input(vector<double> input) {
+      road_input->set_input(input);
+      return;
+  }
 
   std::vector<double> Quarter_Car::get_state_derivatives(double time, std::vector<double> state)
   {
@@ -362,8 +367,6 @@ double Quarter_Car::get_unsprung_damper_force(double damper_velocity){
    // Sweep parameters plots the results obtained in the simulation function sweep_parameters()
    // the function takes in a 3D vector the length of number of sweeps. Each of the sweeps contain the results from one 
    // entire simulation.
-
-
 void Quarter_Car::sweep_parameters(std::vector<std::vector<std::vector<double> > > results_matrix){
       
     

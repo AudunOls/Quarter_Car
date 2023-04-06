@@ -112,6 +112,9 @@ class Quarter_Car:public Dynamic_System {
     virtual void set_parameters(vector<vector<double>> parameters) override;
 
     /***************************************/
+
+    virtual void set_input(vector<double> input) override;
+
 };
 
 #endif // QUARTER_CAR_H

@@ -1,6 +1,8 @@
  
 #include "main.h"
 
+#include <nlopt.hpp>
+
 int main() {
 
     /**************** Defining parameters ****************/
@@ -68,13 +70,12 @@ int main() {
                                                     //[m_u,    m_s,     k_u,    c_u,      k_s,      c_s]
     vector<vector<vector<double> > > sweep_matrix{
                                                     { {10.1}, {41.2},  {89e3}, {110,5}, {56e3}, {400,5.0} },   // iteration 1
-                                                    { {10.1}, {41.2},  {89e3}, {110,5}, {56e3}, {600,6.0} },   // iteration 2
-                                                    { {10.1}, {41.2},  {89e3}, {110,5}, {56e3}, {800,12.0} } };// iteration 3   
+                                                    { {10.1}, {41.2},  {89e3}, {110,5}, {56e3}, {400,5.0} },   // iteration 2
+                                                    { {10.1}, {41.2},  {89e3}, {110,5}, {56e3}, {400,5.0} } };// iteration 3   
 
     sim.plot_result();
-    
-    sim.sweep_parameters(sweep_matrix);
 
+    sim.sweep_parameters(sweep_matrix);
     
     std::cout<< "\n=========== Simulation Completed =============\n";
     return 0;

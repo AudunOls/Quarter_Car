@@ -39,8 +39,8 @@ public:
 
 
 	/*********** plot_results ***********/
-	// Plots the result of a simulation,
-	// in order to not plot a pre-allocated 
+	// Plots the result of a simulation, 
+	// NOTE: in order not to plot pre-allocated 
 	// zero vectors run a simulation before 
 	// plotting it. 
 	void plot_result();
@@ -57,8 +57,8 @@ public:
 	// The results vector contains all the states, then
 	// all the inputs, then all the state derivatives 
 	// then a time vector. 
-	// Note that the a simulation has to be run
-	// in order to not get a pre-allocated 0 vector. 
+	// Note that the a simulation has to be run  
+	// NOTE: in order not to get a pre-allocated 0 vector. 
 	// in order to run a simulation call the 
 	// run_simulation() method
 	vector<vector<double>> get_results();
@@ -69,7 +69,7 @@ public:
 	// the number of simulation steps + 1, starting
 	// in the declared start time and ends at the end
 	// end time. Note that the a simulation has to be run
-	// in order to not get a pre-allocated 0 vector. 
+	// NOTE: in order not to get a pre-allocated 0 vector. 
 	// in order to run a simulation call the 
 	// run_simulation() method
 	vector<double> get_time_vector();
@@ -90,4 +90,14 @@ public:
 	// spring or damper
 	void sweep_parameters(vector<vector<vector<double> > > sweep_matrix);
 
+
+	/*********** set_input ***********/
+	// Sets the input of the dynamic system
+	// for road inputs this is:
+	// impulse input: [amplitude, ramp time] 
+	// sinusoidal input: [amplitude, frequency]
+	// random input: [mean, standard deviation] 
+	void set_input(vector<double> input);
+
 };
+
