@@ -18,6 +18,14 @@ Bilinear_Damper::Bilinear_Damper(
 }
 
 
+void Bilinear_Damper::set_damper_coefficent(std::vector<double> damper_coeff_vec) {
+    lowspeed_compression_damping_coefficient = damper_coeff_vec[0];
+    highspeed_compression_damping_coefficient = damper_coeff_vec[1];
+    lowspeed_rebound_damping_coefficient = damper_coeff_vec[2];
+    highspeed_rebound_damping_coefficient = damper_coeff_vec[3];
+    return;
+}
+
 double Bilinear_Damper::get_damper_coefficent(double damper_velocity){
     if (damper_velocity<0) {                                    // True if compression
         if (damper_velocity>(-compression_kneespeed)){          // True if velocity is low speed

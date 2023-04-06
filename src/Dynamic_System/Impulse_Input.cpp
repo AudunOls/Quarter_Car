@@ -18,4 +18,12 @@ double Impulse_Input::get_road_velocity(double time){
         return 0.0; 
     }
 }
+
+void Impulse_Input::set_input(std::vector<double> input) {
+
+    amplitude = double(input[0]);
+    ramp_time = double(input[0]);
+
+    return;
+}
     

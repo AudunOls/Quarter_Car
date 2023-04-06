@@ -11,12 +11,14 @@ get_spring_force takes in spring extension and returns the spring force
 
 #ifndef SPRING_H
 #define SPRING_H
+#include <vector>
 
 class Spring {
 
     public:
     virtual double get_spring_force(double spring_extension) = 0;
     virtual double get_spring_rate(double spring_extension) = 0;
+    virtual void set_spring_rate(std::vector<double>) = 0;
     virtual ~Spring() = default;
 
 };

@@ -12,3 +12,11 @@ double Sinusoidal_Input::get_road_velocity(double time) {
     return amplitude * sin(2 * M_PI * frequency * time);
 
 }
+
+void Sinusoidal_Input::set_input(std::vector<double> input) {
+
+    amplitude = double(input[0]);
+    frequency = double(input[1]);
+
+    return;
+}

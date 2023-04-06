@@ -5,7 +5,7 @@
 #ifndef LINEAR_SPRING_H
 #define LINEAR_SPRING_H
 #include "Spring.h"
-
+#include <vector>
 
 
 class Linear_Spring: public Spring {
@@ -18,6 +18,7 @@ class Linear_Spring: public Spring {
     Linear_Spring(double spring_preload = 0.0, double spring_rate = 0.0); // constructor
     virtual double get_spring_force(double spring_extension) override;
     virtual double get_spring_rate(double spring_extension) override;
+    virtual void set_spring_rate(std::vector<double> spring_rate_vec) override;
     virtual ~Linear_Spring() = default;
 };
 
