@@ -36,6 +36,7 @@ class Bilinear_Damper: public Damper {
         double rebound_kneespeed = 10);
     virtual double get_damper_force(double damper_velocity) override;
     virtual double get_damper_coefficent(double damper_velocity) override;
+    virtual void set_damper_coefficent(std::vector<double> damper_coeff_vec) override;
     virtual ~Bilinear_Damper()=default; 
 };
 

@@ -48,7 +48,7 @@
     <ClCompile Include="src\Solver\Forward_Euler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Solver\RK_4.cpp">
+    <ClCompile Include="src\Simulation\Simulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,13 +92,16 @@
     <ClInclude Include="src\Dynamic_System\Sinusoidal_Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Solver\RK_4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Solver\Forward_Euler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Solver\Numerical_Solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dynamic_System\Dynamic_System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Simulation\Simulation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

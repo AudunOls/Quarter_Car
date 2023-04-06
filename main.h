@@ -1,6 +1,7 @@
 #pragma once
 
 #define _USE_MATH_DEFINES
+#include <sciplot/sciplot.hpp>
 #include <iostream>
 #include <vector>
 #include <set>
@@ -22,4 +23,9 @@
 #include "Dynamic_System.h"
 #include "Simulation.h"
 
+#include <math.h>
+#include <nlopt.h>
+
+
+using namespace sciplot;
 using namespace std;

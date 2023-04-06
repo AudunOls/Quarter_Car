@@ -20,6 +20,12 @@ double Bilinear_Spring::get_spring_rate(double spring_extension){
 
 }
 
+void Bilinear_Spring::set_spring_rate(std::vector<double> spring_rate_vec) {
+    initial_spring_rate = spring_rate_vec[0];
+    secondary_spring_rate = spring_rate_vec[1];
+    return;
+}
+
 // Overriding the pure viritual funciton in spring class
 double Bilinear_Spring::get_spring_force(double spring_extension) {
     if (spring_extension<-initial_spring_max_travel){

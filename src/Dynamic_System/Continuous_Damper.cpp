@@ -19,3 +19,8 @@ double Continuous_Damper::get_damper_force(double damper_velocity) {
     return a * tanh(b * damper_velocity);
 }
 
+void Continuous_Damper::set_damper_coefficent(std::vector<double> damper_coeff_vec) {
+    a = damper_coeff_vec[0];
+    b = damper_coeff_vec[1];
+    return;
+}

@@ -8,7 +8,7 @@ and x is the spring compression [m]
 #include "Spring.h"
 #include <iostream>
 #include <string>
-
+#include <vector>
 
 class Bilinear_Spring: public Spring {
 
@@ -25,6 +25,7 @@ class Bilinear_Spring: public Spring {
     double secondary_spring_rate = 20e3); // constructor
     virtual double get_spring_force(double spring_extension) override;
     virtual double get_spring_rate(double spring_extension) override;
+    virtual void set_spring_rate(std::vector<double> spring_rate_vec) override;
     virtual ~Bilinear_Spring() = default;
 };
 

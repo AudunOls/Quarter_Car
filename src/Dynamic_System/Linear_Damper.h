@@ -26,6 +26,7 @@ class Linear_Damper: public Damper {
     Linear_Damper(double damping_coefficient = 1.0); 
     virtual double get_damper_force(double damper_velocity) override;
     virtual double get_damper_coefficent(double damper_velocity) override;
+    void set_damper_coefficent(std::vector<double> damper_coeff_vec) override;
     virtual ~Linear_Damper()=default; 
 };
 

@@ -15,3 +15,8 @@ double Linear_Spring::get_spring_rate(double spring_extension){
 double Linear_Spring::get_spring_force(double spring_extension) {
     return -spring_preload - get_spring_rate(spring_extension)*spring_extension;
 }
+
+void Linear_Spring::set_spring_rate(std::vector<double> spring_rate_vec) {
+    spring_rate = spring_rate_vec[0];
+    return;
+}

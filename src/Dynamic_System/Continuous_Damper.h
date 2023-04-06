@@ -15,6 +15,7 @@ When in compression the damper force will be positive.
 #define CONTINUOUS_DAMPER_H
 #include "Damper.h"
 #include <cmath>
+#include <vector>
 
 class Continuous_Damper : public Damper {
 
@@ -30,6 +31,7 @@ public:
     
     virtual double get_damper_force(double damper_velocity) override;
     virtual double get_damper_coefficent(double damper_velocity) override;
+    virtual void set_damper_coefficent(std::vector<double> damper_coeff_vec) override;
     virtual ~Continuous_Damper() = default;
 };
 
